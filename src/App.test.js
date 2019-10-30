@@ -10,21 +10,27 @@ import App from "./App";
 afterEach(rtl.cleanup);
 
 test("Render the heading", () => {
-  // render our React app into an in-memory DOM so we can test against it
-  const wrapper = rtl.render(<App />);
+   // render our React app into an in-memory DOM so we can test against it
+   const wrapper = rtl.render(<App />);
 
-  // element is now our dom element that we can test against
-  const element = wrapper.getByText(/the dog website/i);
+   // element is now our dom element that we can test against
+   const element = wrapper.getByText(/the dog website/i);
 
-  // test will fail if element is not visible to our robot eyes
-  expect(element).toBeVisible();
+   // test will fail if element is not visible to our robot eyes
+   expect(element).toBeVisible();
 });
 
 test("Render count input", () => {
-  const wrapper = rtl.render(<App />);
-  // using a regular expression instead of a string allows our
-  // query to be much more flexible. for example, if the text becomes
-  // all uppercase, we don't want our test to break
-  const element = wrapper.getByPlaceholderText(/count/i);
-  expect(element).toHaveValue(1);
+   const wrapper = rtl.render(<App />);
+   // using a regular expression instead of a string allows our
+   // query to be much more flexible. for example, if the text becomes
+   // all uppercase, we don't want our test to break
+   const element = wrapper.getByPlaceholderText(/count/i);
+   expect(element).toHaveValue(1);
+});
+
+test("<App .> snapshot", () => {
+   const wrapper = rtl.render(<App />);
+
+   expect(wrapper.asFragment()).toMatchSnapshot();
 });
