@@ -9,10 +9,13 @@ import App from "./App";
 // routine cleanup after each test runs (to reset the DOM and such)
 afterEach(rtl.cleanup);
 
-test("Render the heading", () => {
+test.only("Render the heading", async () => {
    // render our React app into an in-memory DOM so we can test against it
    const wrapper = rtl.render(<App />);
+   await wrapper.findAllByAltText(/dog/i);
 
+   wrapper.debug();
+   
    // element is now our dom element that we can test against
    const element = wrapper.getByText(/the dog website/i);
 
