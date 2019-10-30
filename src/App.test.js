@@ -29,6 +29,20 @@ test("Made API call", async () => {
    expect(axios.get).toHaveBeenCalled();
 });
 
+test("Cleared images", async () => {
+   const wrapper = rtl.render(<App />);
+   await wrapper.findAllByAltText(/dog/i);
+
+   const clear = wrapper.getByText(/clear/i);
+
+   rtl.act(() => {
+      rtl.fireEvent.click(clear);
+   });
+
+   const images = wrapper.queryByAltText(/dog/i);
+   expect(images).toBeNull();
+});
+
 test("Render the heading", async () => {
    // render our React app into an in-memory DOM so we can test against it
    const wrapper = rtl.render(<App />);
