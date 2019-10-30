@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 // no default export, so we're importing everyting from this library
 import * as rtl from "@testing-library/react";
@@ -21,12 +22,17 @@ jest.mock("axios", () => {
 // routine cleanup after each test runs (to reset the DOM and such)
 afterEach(rtl.cleanup);
 
+test("Made API call", async () => {
+   const wrapper = rtl.render(<App />);
+   await wrapper.findAllByAltText(/dog/i);
+
+   expect(axios.get).toHaveBeenCalled();
+});
+
 test("Render the heading", async () => {
    // render our React app into an in-memory DOM so we can test against it
    const wrapper = rtl.render(<App />);
    await wrapper.findAllByAltText(/dog/i);
-
-   wrapper.debug();
 
    // element is now our dom element that we can test against
    const element = wrapper.getByText(/the dog website/i);
